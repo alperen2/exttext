@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<br>
+<form class="form-inline" id="formUpload" enctype="multipart/form-data">
+    <div class="custom-file mb-4">
+        <input type="file" class="custom-file-input" id="file" name="file" accept="image/*" capture="camera">
+        <label class="custom-file-label" for="customFile">Choose file</label>
+    </div>
+
+</form>
+
+<div class="card mb-4" style="max-width: 100%; max-height: 500px;overflow: hidden;">
+    <img class="card-img-top img" id="image" alt="">
+    <div class="card-body">
+        <p class="card-text">Bir fotoğraf yükle ve sonuçları gör</p>
+    </div>
+</div>
+
+<button id="btnCrop" class="btn btn-primary mr-2">Kırp</button>
+<button id="btnCropOk" class="btn btn-primary">Ok</button>
+<img src="" id="preview" alt="">
+<div id="has"></div>
+
+{% endblock content %}

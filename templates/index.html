@@ -1,25 +1,32 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<br>
-<form class="form-inline" id="formUpload" enctype="multipart/form-data">
-    <div class="custom-file mb-4">
+
+<div class="row mb-5 mt-5" >
+    <div class="col-12">
         <input type="file" class="custom-file-input" id="file" name="file" accept="image/*" capture="camera">
-        <label class="custom-file-label" for="customFile">Choose file</label>
-    </div>
-
-</form>
-
-<div class="card mb-4" style="max-width: 100%; max-height: 500px;overflow: hidden;">
-    <img class="card-img-top img" id="image" alt="">
-    <div class="card-body">
-        <p class="card-text">Bir fotoğraf yükle ve sonuçları gör</p>
+        <label class="custom-file-label" for="customFile">Resim seç</label>
     </div>
 </div>
 
-<button id="btnCrop" class="btn btn-primary mr-2">Kırp</button>
-<button id="btnCropOk" class="btn btn-primary">Ok</button>
-<img src="" id="preview" alt="">
-<div id="has"></div>
+<div class="row mb-5">
+    <div class="col-12" style="display: flex; justify-content: center;">
+        <img src="deneme.jpg" id="image" alt="" style="max-height: 500px;">
+    </div>
+</div>
 
+<div class="row">
+    <div class="col-12">
+        <p class="card-text"></p>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-12">
+        <button id="btnCrop" class="btn btn-primary mr-2">Yazıyı seç</button>
+        <button id="btnCropOk" class="btn btn-primary mr-2" disabled>Metni oluştur</button>
+        <button id="btnCropReset" class="btn btn-primary"  disabled>Seçimi iptal et</button>
+    </div>
+</div>
 {% endblock content %}

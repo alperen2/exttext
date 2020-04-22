@@ -26,6 +26,8 @@ def upload():
         'text': text,
         'img': os.path.join(app.config['UPLOAD_FOLDER'], filename)
     }
+    if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], filename)):
+        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     return json.dumps(res)
 
 def imageTotext(img):

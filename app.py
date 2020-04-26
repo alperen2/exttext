@@ -13,7 +13,6 @@ def path(*file):
 
 app = Flask("__main__", template_folder = path('templates'))
 
-print(path('upload','iamge.jpg'))
 @app.route('/', methods = ['GET', 'POST'])
 def index():
     return render_template('index.html')
@@ -34,8 +33,8 @@ def upload():
     return json.dumps(res)
 
 def imageTotext(img):
-    img = Image.open('static/upload/{}'.format(img))
-    text = pytesseract.image_to_string(img, lang='tur')    
+    img_path = Image.open(path(app.config['UPLOAD_FOLDER'], img).format(img))
+    text = pytesseract.image_to_string(img_path, lang='tur')    
     return text.replace("\n","<br>")
 
 

@@ -8,10 +8,12 @@ except ImportError:
 import pytesseract
 from werkzeug.utils import secure_filename
 
-app = Flask("__main__")
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+def path(*file):
+    return os.path.join(os.path.dirname(__file__), *file)
 
+app = Flask("__main__", template_folder = path('templates'))
 
+print(path('upload','iamge.jpg'))
 @app.route('/', methods = ['GET', 'POST'])
 def index():
     return render_template('index.html')
@@ -20,20 +22,22 @@ def index():
 def upload():
     file = request.files['file']
     filename = secure_filename(file.filename)
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    file_path = path(app.config['UPLOAD_FOLDER'],filename)
+    file.save(file_path)
     text = imageTotext(filename)
     res = {
         'text': text,
-        'img': os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        'img': file_path
     }
-    if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], filename)):
-        os.remove(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    if os.path.exists(file_path):
+        os.remove(file_path)
     return json.dumps(res)
 
 def imageTotext(img):
     img = Image.open('static/upload/{}'.format(img))
     text = pytesseract.image_to_string(img, lang='tur')    
     return text.replace("\n","<br>")
+
 
 
 app.config['UPLOAD_FOLDER'] = "static/upload"

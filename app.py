@@ -33,7 +33,7 @@ def upload():
     return json.dumps(res)
 
 def imageTotext(img):
-    img_path = Image.open(path(app.config['UPLOAD_FOLDER'], img).format(img))
+    img_path = Image.open(path(app.config['UPLOAD_FOLDER'], img))
     text = pytesseract.image_to_string(img_path, lang='tur')    
     return text.replace("\n","<br>")
 

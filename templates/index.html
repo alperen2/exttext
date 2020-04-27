@@ -2,31 +2,34 @@
 
 {% block content %}
 
-<div class="row mb-5 mt-5" >
-    <div class="col-12">
+<div class="row mb-5 mt-3">
+    <div class="col-6 col-sm-6 col-12 mb-4">
         <input type="file" class="custom-file-input" id="file" name="file" accept="image/*" capture="camera">
-        <label class="custom-file-label" for="customFile">Resim seç</label>
+        <label class="custom-file-label" for="customFile">take photo</label>
+    </div>
+    <div class="col-3 col-sm-6 col-12">
+        <button id="btnRotate" class="btn btn-primary when_selected_file">Rotate</button>
+        <button id="btnCropReset" class="btn btn-primary when_selected_file" disabled>Cancel</button>
+        <button id="btnCropOk" class="btn btn-primary when_selected_file" disabled>Get Text</button>
     </div>
 </div>
-
-<div class="row mb-5">
+<div class="row rotate_wrapper" style="display: none;">
+    <div class="col-12">
+        <div class="d-flex justify-content-center my-4">
+            <input type="range" class="custom-range" id="rotate_range" min="0" max="180">
+            <span class="font-weight-bold text-primary ml-2 valueSpan2"></span>
+        </div>
+    </div>
+</div>
+<div class="card mb-3">
     <div class="col-12" style="display: flex; justify-content: center;">
         <img src="deneme.jpg" id="image" alt="" style="max-height: 500px;">
     </div>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <p class="card-text"></p>
+    <div class="card-body">
+        <p class="card-text">Bir fotoğraf çekiniz</p>
     </div>
 </div>
 
 
-<div class="row">
-    <div class="col-12">
-        <button id="btnCrop" class="btn btn-primary mr-2">Yazıyı seç</button>
-        <button id="btnCropOk" class="btn btn-primary mr-2" disabled>Metni oluştur</button>
-        <button id="btnCropReset" class="btn btn-primary"  disabled>Seçimi iptal et</button>
-    </div>
-</div>
+
 {% endblock content %}

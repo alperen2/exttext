@@ -1,9 +1,9 @@
 let x, y, width, height, rotate, scaleX, scaleY, cropper, image;
 $(document).ready(function (e) {
-  $('.when_selected_file').prop("disabled", "true");
 
   $("#file").on('change', (e) => {
-    document.getElementById('image').src = "";
+    $("#tools").show();
+    $('#image').src = "";
     file = e.target.files[0]
     let reader = new FileReader();
 
@@ -11,7 +11,6 @@ $(document).ready(function (e) {
       document.getElementById('image').src = reader.result
 
       $("#file").prop('disabled', 'true')
-      $('.when_selected_file').removeAttr('disabled')
       image = document.getElementById('image');
       cropper = new Cropper(image,
         {
@@ -45,27 +44,31 @@ $(document).ready(function (e) {
   })
 
   $('#btnCropOk').on('click', () => {
-    $(".card-text").html("Biraz bekleteyim hacı seni")
+    $(".card-text").hide()
+    $(".spinner-border").show()
     let croppedimage = cropper.getCroppedCanvas().toBlob(blob => {
       const formData = new FormData();
-      
+
       formData.append('file', blob, `${Math.round(Math.random() * 100000)}.png`);
       $.ajax('/upload', {
         method: 'POST',
         data: formData,
         processData: false,
         contentType: false,
-        beforeSend: (a) => {
-          console.log('loading')
-        },
         success(response) {
           data = JSON.parse(response)
-          $(".card-text").html(data.text)
+          if (data.text == "") {
+            $(".card-text").show().html("Yazı yok ya da algılanamadı.")
+          }
+          else {
+            $(".card-text").show().html(data.text)
+          }
           $(".img").attr('src', data.img)
+          $(".spinner-border").hide()
         },
         error(e) {
-          $(".card-text").html("Hacı bozdunlan uygulamayı hemen, bir hata oluştu ")
-          console.log(e);
+          $(".spinner-border").hide()
+          $(".card-text").show().html("Bir hata oluştu, daha sonra tekrar deneyiniz.")
         },
       });
 
@@ -75,8 +78,9 @@ $(document).ready(function (e) {
 
   $('#btnCropReset').click(() => {
     $("#file").removeAttr("disabled");
-    $("#image").removeAttr('src')
-    cropper.destroy()
+    $("#image").removeAttr('src');
+    $("#tools").hide();
+    cropper.destroy();
   })
 });
 

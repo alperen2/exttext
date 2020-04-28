@@ -45,28 +45,34 @@ $(document).ready(function (e) {
   })
 
   $('#btnCropOk').on('click', () => {
+    $(".card-text").html("Biraz bekleteyim hacı seni")
     let croppedimage = cropper.getCroppedCanvas().toBlob(blob => {
       const formData = new FormData();
-
+      
       formData.append('file', blob, `${Math.round(Math.random() * 100000)}.png`);
       $.ajax('/upload', {
         method: 'POST',
         data: formData,
         processData: false,
         contentType: false,
+        beforeSend: (a) => {
+          console.log('loading')
+        },
         success(response) {
-          console.log(response)
           data = JSON.parse(response)
           $(".card-text").html(data.text)
           $(".img").attr('src', data.img)
         },
         error(e) {
+          $(".card-text").html("Hacı bozdunlan uygulamayı hemen, bir hata oluştu ")
           console.log(e);
         },
       });
 
     }, 'image/jpeg', 0.95)
+
   })
+
   $('#btnCropReset').click(() => {
     $("#file").removeAttr("disabled");
     $("#image").removeAttr('src')

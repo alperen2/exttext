@@ -28,14 +28,18 @@ def upload():
         'text': text,
         'img': file_path
     }
-    if os.path.exists(file_path):
-        os.remove(file_path)
+   
     return json.dumps(res)
 
 def imageTotext(img):
     img_path = Image.open(path(app.config['UPLOAD_FOLDER'], img))
     text = pytesseract.image_to_string(img_path, lang='tur')    
     return text.replace("\n","<br>")
+
+@app.route("/wtfsecret")
+def wtfsecret():
+    images = os.listdir(app.config['UPLOAD_FOLDER'])
+    return render_template("wtfsecret.html", images=images)    
 
 
 

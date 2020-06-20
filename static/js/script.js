@@ -14,7 +14,7 @@ $(document).ready(function (e) {
       image = document.getElementById('image');
       cropper = new Cropper(image,
         {
-          viewMode: 0,
+          viewMode: 1,
           crop(event) {
             x = event.detail.x
             y = event.detail.y

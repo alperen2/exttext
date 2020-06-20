@@ -43,6 +43,6 @@ def wtfsecret():
 
 
 
-app.config['UPLOAD_FOLDER'] = "static/upload"
+app.config['UPLOAD_FOLDER'] = "static/"
 if __name__ == '__main__':
     app.run(debug=True)

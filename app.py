@@ -38,7 +38,7 @@ def imageTotext(img):
 
 @app.route("/wtfsecret")
 def wtfsecret():
-    images = os.listdir(app.config['UPLOAD_FOLDER'])
+    images = os.listdir(os.path.join(os.path.dirname(__file__), 'static'))
     return render_template("wtfsecret.html", images=images)    
 
 
